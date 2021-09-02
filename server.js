@@ -54,7 +54,7 @@ app.delete('/api/v1/ideas/:id', (request, response) => {
 
 app.patch('/api/v1/ideas/:id',(req, res)=>{
   var id = req.params.id;
-  var body = _.pick(req.body, ['id', 'title', 'description','isFavorite']);
+  var body = _.pick(req.body, 'isFavorite');
 
   if(!ObjectID.isValid(id)){
     res.status(404).send();
