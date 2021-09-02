@@ -52,6 +52,29 @@ app.delete('/api/v1/ideas/:id', (request, response) => {
   return response.sendStatus(204);
 });
 
+app.patch('/api/v1/ideas/:id',(req, res)=>{
+  var id = req.params.id;
+  var body = _.pick(req.body, ['id', 'title', 'description','isFavorite']);
+
+  if(!ObjectID.isValid(id)){
+    res.status(404).send();
+  }
+
+  employee.findByIdAndUpdate(id, {$set: body}, {new: true}).then(
+    (ideas)=>{
+      if(!ideas){
+        res.status(404).send();
+      }
+      res.send(ideas);
+    },
+    (error) =>{
+      res.send(error);
+    }
+  ).catch((e)=>{
+    res.status(404).send();
+  });
+});
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is now running on port ${app.get('port')}!`);
 });
