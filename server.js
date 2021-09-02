@@ -30,7 +30,7 @@ app.get('/api/v1/ideas/:id', (request, response) => {
 app.post('/api/v1/ideas', (request, response) => {
   const newIdea = request.body;
 
-  for (let requiredParameter of ['id', 'title', 'description']) {
+  for (let requiredParameter of ['id', 'title', 'description', 'isFavorite']) {
     if (!newIdea[requiredParameter]) return response.status(422).json({message: `You are missing a required parameter of ${requiredParameter}`});
   }
 
